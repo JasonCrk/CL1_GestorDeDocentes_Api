@@ -10,7 +10,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
-import java.util.Date;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "docente")
@@ -31,8 +31,8 @@ public class Teacher {
     @Column(name = "dni", nullable = false, unique = true, columnDefinition = "CHAR(8)")
     private String dni;
 
-    @Column(name = "fechaNacimiento", nullable = false)
-    private Date birthdate;
+    @Column(name = "fechaNacimiento", nullable = false, columnDefinition = "DATE")
+    private LocalDate birthdate;
 
     @Column(name = "sueldo", nullable = false, columnDefinition = "DOUBLE")
     private BigDecimal salary;
