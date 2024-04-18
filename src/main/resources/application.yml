@@ -1,0 +1,18 @@
+server:
+    port: 4000
+    error:
+        include-message: always
+
+spring:
+    config:
+        # Puede crear el archivo `secrets.yml` en `resources` y ahí poner los datos faltantes para la conexión con la base de datos
+        import: optional:secrets.yml
+    jpa:
+        database: mysql
+        database-platform: org.hibernate.dialect.MySQLDialect
+        show-sql: true
+        hibernate:
+            ddl-auto: create-drop
+        properties:
+            hibernate:
+                format-sql: true
