@@ -15,6 +15,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -32,6 +33,7 @@ public class GetAllCategoriesServiceTest {
     private CategoryServiceImpl categoryService;
 
     private List<Category> dbCategories;
+    private final List<CategoryResponse> categoryResponses = new ArrayList<>();
 
     @BeforeEach
     public void setUp() {
@@ -41,7 +43,11 @@ public class GetAllCategoriesServiceTest {
                 new Category(3, "Categoria 3"),
                 new Category(4, "Categoria 4"),
                 new Category(5, "Categoria 5")
-        );
+         );
+
+         dbCategories.forEach(category -> {
+             categoryResponses.add(new CategoryResponse(category.getId(), category.getName()));
+         });
     }
 
     @Test
@@ -50,10 +56,11 @@ public class GetAllCategoriesServiceTest {
         Mockito.when(this.categoryRepository.findAll())
                 .thenReturn(dbCategories);
 
-        List<CategoryResponse> serviceCategories = this.categoryService.getAll();
+        Mockito.when(this.categoryMapper.toListResponse(dbCategories))
+                .thenReturn(categoryResponses);
 
-        for (int index = 0; index < serviceCategories.size(); index++) {
-            assertEquals(serviceCategories.get(index).id(), dbCategories.get(index).getId());
-        }
+        List<CategoryResponse> response = this.categoryService.getAll();
+
+        assertEquals(this.dbCategories.size(), response.size());
     }
 }
