@@ -7,6 +7,6 @@ public class IsDniValidator implements ConstraintValidator<IsDni, String> {
 
     @Override
     public boolean isValid(String dni, ConstraintValidatorContext constraintValidatorContext) {
-        return dni.matches("");
+        return dni.matches("^[1-9][0-9]{7}$");
     }
 }
