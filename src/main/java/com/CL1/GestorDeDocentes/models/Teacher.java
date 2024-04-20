@@ -44,7 +44,7 @@ public class Teacher {
     @Column(name = "sexo", nullable = false, columnDefinition = "VARCHAR(45)")
     private Gender gender;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(nullable = false, name = "idcategoria")
     private Category category;
 }
